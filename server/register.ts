@@ -7,7 +7,7 @@ const name = pluginPkg.strapi.name;
 export default ({ strapi }: { strapi: Strapi }) => {
   strapi.customFields.register({
     name: name,
-    plugin: name,
+    plugin: pluginId,
     type: 'json',
   });
 };

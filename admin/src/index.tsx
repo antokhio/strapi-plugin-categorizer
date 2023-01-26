@@ -11,7 +11,7 @@ export default {
   register(app) {
     app.customFields.register({
       name,
-      pluginId: name,
+      pluginId: pluginId,
       type: "json",
       icon: PluginIcon,
       intlLabel: {
