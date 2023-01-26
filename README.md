@@ -70,4 +70,4 @@ src/api/contentType/content-types/contentType/schema.json
 
 ### Known issues
 
-1. (Relations are not updated in Content Editor View if updated from lifecycle hook.)[https://github.com/strapi/strapi/issues/15571]
+1. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
