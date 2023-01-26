@@ -5,9 +5,10 @@ import pluginPkg from '../package.json';
 const name = pluginPkg.strapi.name;
 
 export default ({ strapi }: { strapi: Strapi }) => {
-  strapi.customFields.register({
-    name: name,
-    plugin: pluginId,
-    type: 'json',
-  });
+    console.log(name);
+    strapi.customFields.register({
+        name: name,
+        plugin: name,
+        type: 'json',
+    });
 };

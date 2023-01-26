@@ -10,8 +10,8 @@ const name = pluginPkg.strapi.name;
 export default {
   register(app) {
     app.customFields.register({
-      name,
-      pluginId: pluginId,
+      name: name,
+      pluginId: name,
       type: "json",
       icon: PluginIcon,
       intlLabel: {
@@ -46,14 +46,14 @@ export default {
     //     // },
     //   ],
     // });
-    const plugin = {
-      id: pluginId,
-      initializer: Initializer,
-      isReady: false,
-      name,
-    };
+    // const plugin = {
+    //   id: pluginId,
+    //   initializer: Initializer,
+    //   isReady: true,
+    //   name,
+    // };
 
-    app.registerPlugin(plugin);
+    // app.registerPlugin(plugin);
   },
 
   bootstrap(app) { },
