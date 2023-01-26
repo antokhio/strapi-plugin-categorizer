@@ -11,21 +11,20 @@ The plugin will create `Content Type` `Categories`.
 |     Main category     | ____\ |       Category        | ____\ |      Sub Category     |
 |     parent: null      |     / | parent: Main Category |     / |    parent: Category   |
 |_______________________|       |_______________________|       |_______________________|
+
 ```
 
 ## Installation
 
-`npm i @antokhio/strapi-plugin-categorizer`
-`yarn add @antokhio/strapi-plugin-categorizer`
+```py
+npm i @antokhio/strapi-plugin-categorizer
+or
+yarn add @antokhio/strapi-plugin-categorizer
+```
 
-`/config/plugins.ts`
-
-```ts
-export default ({ env }) => ({
-  categorizer: {
-    enabled: true,
-  },
-});
+```py
+npm run build
+yarn run build
 ```
 
 ## Setting up
@@ -70,3 +69,8 @@ Add custom field `categorizer` and relation `hasMany` to your content type like 
 ### Known issues
 
 1. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
+2. [Route prefix: Route prefix false does not remove the plugin name but prepend 'false' at the route](https://github.com/strapi/strapi/issues/9232)
+
+#### P.S.
+
+This developed in free time.
