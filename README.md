@@ -2,6 +2,9 @@
 
 A plugin that let's you categorize content quickly.
 The plugin will create `Content Type` `Categories`.
+The plugin would inject lifecycle hooks if contentType includes fields `categories` and `categorizer`.
+
+The plugin check the content types, when it found target fields it injects lifecycles to that content type. Custom field would generate json value of the selected categories, and `onCreate` or `onUpdate`, the relations for the `categories` field would be created.
 
 `Categories` is a collection that should have following structure:
 
@@ -65,6 +68,10 @@ Add custom field `categorizer` and relation `hasMany` to your content type like 
   }
 }
 ```
+
+### Recommendations
+
+It's recommended to hide `categories`, or disable editing, since on every
 
 ### Known issues
 
