@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const pluginId_1 = __importDefault(require("../admin/src/pluginId"));
 exports.default = ({ strapi }) => {
     strapi.customFields.register({
-        name: "categorizer",
+        name: 'categorizer',
         plugin: pluginId_1.default,
-        type: "json",
+        type: 'json',
     });
 };
