@@ -19,7 +19,7 @@ The plugin will create `Content Type` `Categories`.
 `yarn add @antokhio/strapi-plugin-categorizer`
 
 `/config/plugins.ts`
-```
+```ts
 export default ({ env }) => ({
     categorizer: {
         enabled: true,
@@ -27,7 +27,6 @@ export default ({ env }) => ({
     },
 });
 ```
-
 
 ## Setting up
 
@@ -46,7 +45,7 @@ http://localhost:1337/api/categories
 ```
 
 Add custom field `categorizer` and relation `hasMany` to your content type like so:
-src/api/contentType/content-types/contentType/schema.json
+`src/api/contentType/content-types/contentType/schema.json`
 
 ```json
 {
