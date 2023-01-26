@@ -1,0 +1,36 @@
+{
+    "kind": "collectionType",
+    "collectionName": "categories",
+    "info": {
+        "singularName": "category",
+        "pluralName": "categories",
+        "displayName": "Categories",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": false,
+        "comment": ""
+    },
+    "pluginOptions": {
+        "content-manager": {
+            "visible": true
+        },
+        "content-type-builder": {
+            "visible": true
+        }
+    },
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "title"
+        },
+        "parent": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "plugin::categorizer.category"
+        }
+    }
+}

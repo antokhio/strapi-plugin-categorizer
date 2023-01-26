@@ -19,12 +19,12 @@ The plugin will create `Content Type` `Categories`.
 `yarn add @antokhio/strapi-plugin-categorizer`
 
 `/config/plugins.ts`
+
 ```ts
 export default ({ env }) => ({
-    categorizer: {
-        enabled: true,
-        resolve: './src/plugins/categorizer',
-    },
+  categorizer: {
+    enabled: true,
+  },
 });
 ```
 
