@@ -4,7 +4,7 @@ import pluginId from '../admin/src/pluginId';
 export default ({ strapi }: { strapi: Strapi }) => {
   strapi.customFields.register({
     name: 'categorizer',
-    plugin: pluginId,
+    plugin: 'categorizer',
     type: 'json',
   });
 };
