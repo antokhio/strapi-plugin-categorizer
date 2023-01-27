@@ -1,10 +1,10 @@
 # Strapi plugin categorizer
-
 A plugin that let's you categorize content quickly.
-The plugin will create `Content Type` `Categories`.
-The plugin would inject lifecycle hooks if contentType includes fields `categories` and `categorizer`.
 
-The plugin check the content types, when it found target fields it injects lifecycles to that content type. Custom field would generate json value of the selected categories, and `onCreate` or `onUpdate`, the relations for the `categories` field would be created.
+`categorizer` is kind of relation builder based on json provided by custom field.
+The `categorizer` filed would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, thouse json would be used to build actual rellations for `categories` field.
+
+So make sure that target content type has `categorizer` and `categories` attributes.
 
 `Categories` is a collection that should have following structure:
 
@@ -30,23 +30,16 @@ npm run build
 yarn run build
 ```
 
+The plugin will add:
+- Custom Field `Categorizer`
+- Collection `Categories`.
+- Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
+
 ## Setting up
 
-Add your category structure, to Categories Content Type.
+1. Create your category structure.
 
-#### NOTICE:
-
-1. Only three levels of depth supported.
-2. Categories order is by id.
-3. All categories would be fetched at once.
-
-You can access 'categories` as regular content type:
-
-```
-http://localhost:1337/api/categories
-```
-
-Add custom field `categorizer` and relation `hasMany` to your content type like so:
+2. Add custom field `categorizer` and relation `hasMany` `categories` to your content type like so:
 `src/api/contentType/content-types/contentType/schema.json`
 
 ```json
@@ -69,15 +62,27 @@ Add custom field `categorizer` and relation `hasMany` to your content type like 
 }
 ```
 
-### Recommendations
+#### NOTICE:
 
-It's recommended to hide `categories`, or disable editing, since on every
+1. Only three levels of depth supported.
+2. Categories order currentlly is by id.
+3. All categories would be fetched at once, so it's not expected to work with thousands of them.
+4. Category can have only one parent.
 
-### Known issues
+You can access 'categories` as regular content type:
+```
+http://localhost:1337/api/categories
+```
+You have to added permissions in `Roles & Permissions`
+You can access collection from code via `plugin::categorizer.categorie`
+You can extend `Categories` for your needs but it has to have mandatory field `parent`
+
+It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
+
+### Knowing issues:
 
 1. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
 2. [Route prefix: Route prefix false does not remove the plugin name but prepend 'false' at the route](https://github.com/strapi/strapi/issues/9232)
 
 #### P.S.
-
-This developed in free time.
+This developed in free time, and not a magic. so 
