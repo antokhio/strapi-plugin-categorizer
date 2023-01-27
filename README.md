@@ -1,8 +1,8 @@
 # Strapi plugin categorizer
-A plugin that let's you categorize content quickly.
+A plugin that lets you categorise content quickly.
 
-`categorizer` is kind of relation builder based on json provided by custom field.
-The `categorizer` filed would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, thouse json would be used to build actual rellations for `categories` field.
+`categorizer` is a kind of relation builder based on json created in custom field.
+The `categorizer` field would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, those json would be used to build actual relations for `categories` field.
 
 So make sure that target content type has `categorizer` and `categories` attributes.
 
@@ -64,10 +64,10 @@ The plugin will add:
 
 #### NOTICE:
 
-1. Only three levels of depth supported.
-2. Categories order currentlly is by id.
+1. Only three levels of depth are supported.
+2. Categories order currently is by id.
 3. All categories would be fetched at once, so it's not expected to work with thousands of them.
-4. Category can have only one parent.
+4. Categories can have only one parent.
 
 You can access 'categories` as regular content type:
 ```
@@ -84,5 +84,4 @@ It's recommended to hide or disable editing for field `categories`, since on eve
 1. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
 2. [Route prefix: Route prefix false does not remove the plugin name but prepend 'false' at the route](https://github.com/strapi/strapi/issues/9232)
 
-#### P.S.
-This developed in free time, and not a magic. so 
+##### P.S. This is developed in free time, and this is not magic, so be kind and use it wisely.
