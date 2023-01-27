@@ -1,10 +1,10 @@
 {
     "name": "@antokhio/strapi-plugin-categorizer",
-    "version": "0.2.0",
-    "description": "This is the description of the plugin.",
+    "version": "0.2.1",
+    "description": "A plugin that lets you categorise content quickly.",
     "strapi": {
         "name": "categorizer",
-        "description": "A plugin that let's you categorize content quickly.",
+        "description": "A plugin that lets you categorise content quickly.",
         "kind": "plugin",
         "icon": "puzzle"
     },
@@ -19,11 +19,11 @@
         "typescript": "4.6.3"
     },
     "author": {
-        "name": "antokhio"
+        "name": "@antokhio"
     },
     "maintainers": [
         {
-            "name": "antokhio"
+            "name": "@antokhio"
         }
     ],
     "engines": {

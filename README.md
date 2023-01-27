@@ -1,4 +1,5 @@
 # Strapi plugin categorizer
+
 A plugin that lets you categorise content quickly.
 
 `categorizer` is a kind of relation builder based on json created in custom field.
@@ -19,7 +20,6 @@ So make sure that target content type has `categorizer` and `categories` attribu
 
 ![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
 
-
 ## Installation
 
 ```py
@@ -34,16 +34,17 @@ yarn run build
 ```
 
 The plugin will add:
-- Custom Field `Categorizer`
-- Collection `Categories`.
-- Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
+
+-   Custom Field `Categorizer`
+-   Collection `Categories`.
+-   Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
 
 ## Setting up
 
 1. Create your category structure.
 
 2. Add custom field `categorizer` and relation `hasMany` `categories` to your content type like so:
-`src/api/contentType/content-types/contentType/schema.json`
+   `src/api/contentType/content-types/contentType/schema.json`
 
 ```json
 {
@@ -73,14 +74,22 @@ The plugin will add:
 4. Categories can have only one parent.
 
 You can access 'categories` as regular content type:
+
 ```
 http://localhost:1337/api/categories
 ```
+
 You have to added permissions in `Roles & Permissions`
 You can access collection from code via `plugin::categorizer.categorie`
 You can extend `Categories` for your needs but it has to have mandatory field `parent`
 
 It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
+
+The purpose of this is to be able to do that:
+
+```
+http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
+```
 
 ### Knowing issues:
 
