@@ -17,6 +17,9 @@ So make sure that target content type has `categorizer` and `categories` attribu
 
 ```
 
+![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
+
+
 ## Installation
 
 ```py
