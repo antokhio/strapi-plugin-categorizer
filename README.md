@@ -20,6 +20,10 @@ So make sure that target content type has `categorizer` and `categories` attribu
 
 ![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
 
+## Requirements
+
+This plugin teste with `Strapi 4.6.0`
+
 ## Installation
 
 ```py
@@ -95,6 +99,7 @@ http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 
 -   [ ] Cleanup unused code
 -   [ ] Target plugin name instead of fields name
+-   [ ] Remove json field from response
 
 ### Knowing issues:
 
