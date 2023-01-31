@@ -79,9 +79,9 @@ You can access 'categories` as regular content type:
 http://localhost:1337/api/categories
 ```
 
-You have to added permissions in `Roles & Permissions`
-You can access collection from code via `plugin::categorizer.categorie`
-You can extend `Categories` for your needs but it has to have mandatory field `parent`
+-   You have to add permissions in `Roles & Permissions`
+-   You can access collection from code via `plugin::categorizer.categorie`
+-   You can extend `Categories` for your needs but it has to have mandatory field `parent`
 
 It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
 
@@ -90,6 +90,11 @@ The purpose of this is to be able to do that:
 ```
 http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 ```
+
+### TODO:
+
+-   [ ] Cleanup unused code
+-   [ ] Target plugin name instead of field name, so fields don't have to be called exactly
 
 ### Knowing issues:
 
