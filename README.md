@@ -94,7 +94,7 @@ http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 ### TODO:
 
 -   [ ] Cleanup unused code
--   [ ] Target plugin name instead of field name, so fields don't have to be called exactly
+-   [ ] Target plugin name instead of fields name
 
 ### Knowing issues:
 
