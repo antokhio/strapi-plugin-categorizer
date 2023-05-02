@@ -1,41 +1,21 @@
 import { Strapi } from "@strapi/strapi";
 
 export default ({ strapi }: { strapi: Strapi }) => {
-  let models = [];
-  Object.entries(strapi.contentTypes).forEach(([key, value]) => {
-    if (
-      "categorizer" in (value as any).attributes &&
-      "categories" in (value as any).attributes
-    ) {
-      models.push(key);
+  // bootstrap phase
+
+  Object.entries(strapi.contentTypes).forEach(
+    ([key, value]: [key: string, value: any]) => {
+      const { attributes } = value;
+      if (typeof attributes === "object") {
+        Object.entries(attributes).forEach(
+          ([attribute, options]: [attribute: string, options: any]) => {
+            const { customField } = options;
+            if (customField === "plugin::categorizer.categorizer") {
+              console.log(attribute, options);
+            }
+          }
+        );
+      }
     }
-  });
-
-  strapi.log.info("categorizer: ", models);
-
-  strapi.db.lifecycles.subscribe({
-    // @ts-ignore
-    models,
-    async beforeCreate(event) {
-      let { params } = event;
-      let { data } = params;
-      const { categorizer } = data;
-      if (categorizer) {
-        event.params.data.categories = categorizer.map((id, i) => ({
-          id,
-          order: i,
-        }));
-      }
-    },
-    async beforeUpdate(event) {
-      const { data } = event.params;
-      const { categorizer } = data;
-      if (categorizer) {
-        event.params.data.categories = categorizer.map((id, i) => ({
-          id,
-          order: i,
-        }));
-      }
-    },
-  });
+  );
 };

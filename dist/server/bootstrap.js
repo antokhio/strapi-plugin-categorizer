@@ -1,37 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ({ strapi }) => {
-    let models = [];
+    // bootstrap phase
     Object.entries(strapi.contentTypes).forEach(([key, value]) => {
-        if ("categorizer" in value.attributes &&
-            "categories" in value.attributes) {
-            models.push(key);
+        const { attributes } = value;
+        if (typeof attributes === "object") {
+            Object.entries(attributes).forEach(([attribute, options]) => {
+                const { customField } = options;
+                if (customField === "plugin::categorizer.categorizer") {
+                    console.log(attribute, options);
+                }
+            });
         }
-    });
-    strapi.log.info("categorizer: ", models);
-    strapi.db.lifecycles.subscribe({
-        // @ts-ignore
-        models,
-        async beforeCreate(event) {
-            let { params } = event;
-            let { data } = params;
-            const { categorizer } = data;
-            if (categorizer) {
-                event.params.data.categories = categorizer.map((id, i) => ({
-                    id,
-                    order: i,
-                }));
-            }
-        },
-        async beforeUpdate(event) {
-            const { data } = event.params;
-            const { categorizer } = data;
-            if (categorizer) {
-                event.params.data.categories = categorizer.map((id, i) => ({
-                    id,
-                    order: i,
-                }));
-            }
-        },
     });
 };

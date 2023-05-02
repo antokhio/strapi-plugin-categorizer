@@ -1,13 +1,10 @@
-import { Strapi } from '@strapi/strapi';
-import pluginId from '../admin/src/pluginId';
-import pluginPkg from '../package.json';
-
-const name = pluginPkg.strapi.name;
+import { Strapi } from "@strapi/strapi";
+import pluginPkg from "../package.json";
 
 export default ({ strapi }: { strapi: Strapi }) => {
-    strapi.customFields.register({
-        name: name,
-        plugin: name,
-        type: 'json',
-    });
+  strapi.customFields.register({
+    name: pluginPkg.strapi.name,
+    plugin: pluginPkg.strapi.name,
+    type: "json",
+  });
 };
