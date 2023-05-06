@@ -15,6 +15,7 @@ import {
   Loader,
 } from "@strapi/design-system";
 import CategorizerInput from "../CategorizerInput";
+import { CategorizerValue } from "../../types";
 
 interface CategorizerProps {
   name: string;
@@ -29,7 +30,9 @@ interface CategorizerProps {
     type: string;
     customFiled: string;
     options: {
-      target: string;
+      targetName: string | null;
+      targetAttribute: string | null;
+      maxDepth: number | null;
     };
   };
   intlLabel: {
@@ -41,7 +44,8 @@ interface CategorizerProps {
 const Categorizer: React.FC<CategorizerProps> = ({
   name,
   attribute: {
-    options: { target: fieldTarget },
+    options: { targetName, targetAttribute, maxDepth = 3 },
+    type,
   },
   value: initialValue,
   onChange,
@@ -52,10 +56,32 @@ const Categorizer: React.FC<CategorizerProps> = ({
     ...cme
   } = useCMEditViewDataManager();
 
-  const { target } = attributes[fieldTarget];
-  const value = initialValue ? JSON.parse(initialValue) : [];
+  const target = useMemo(
+    () => (targetName ? attributes[targetName]?.targetModel ?? null : null),
+    [targetName, attributes]
+  );
 
-  const handleValueChange = () => {};
+  const attribute = useMemo(
+    () => (targetAttribute ? targetAttribute : null),
+    [targetAttribute]
+  );
+
+  const value = (initialValue && JSON.parse(initialValue)) ?? [];
+
+  console.log("state", value);
+  const handleValueChange = (args: {
+    value: CategorizerValue;
+    depth: number;
+  }) => {
+    value[args.depth] = args.value;
+    onChange({
+      target: {
+        name,
+        value: JSON.stringify(value),
+        type: type,
+      },
+    });
+  };
 
   // TODO TARGET VALIDATION
   /*
@@ -68,18 +94,25 @@ const Categorizer: React.FC<CategorizerProps> = ({
   };
   */
 
-  console.log(target);
+  const inputs = useMemo(() => [...Array(maxDepth)], [maxDepth]);
+
   return (
     <Field name={name}>
       <Stack spacing={1}>
         <FieldLabel>{name}</FieldLabel>
         <Grid gap={4}>
-          <CategorizerInput
-            name={name}
-            value={value}
-            target={target}
-            onValueChange={handleValueChange}
-          />
+          {inputs.map((_, i) => (
+            <CategorizerInput
+              value={value}
+              target={target}
+              attribute={attribute}
+              onValueChange={handleValueChange}
+              depth={i}
+              maxDepth={maxDepth}
+              key={i}
+              parent={i === 0 ? null : value[i - 1] ?? undefined}
+            />
+          ))}
         </Grid>
       </Stack>
     </Field>

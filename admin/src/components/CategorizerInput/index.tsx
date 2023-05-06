@@ -19,30 +19,38 @@ import { CategorizerValue } from "../../types";
 import { fetcher } from "../../utils/fetcher";
 
 interface CategorizerInputProps {
-  name: string;
   value: null | any;
-  onValueChange: () => void;
-  target: string;
+  onValueChange: (args: { value: CategorizerValue; depth: number }) => void;
+  target: string | null;
+  attribute: string | null;
   parent?: null | { id: number };
   depth?: number;
+  maxDepth: number | null;
 }
 
 const CategorizerInput: React.FC<CategorizerInputProps> = ({
   value,
   onValueChange,
   target,
-  parent = null,
+  attribute = "id",
+  parent,
   depth = 0,
+  maxDepth = 3,
   ...props
 }) => {
   const { post } = useFetchClient();
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState<undefined | CategorizerValue[]>();
 
-  const currentValue = value[depth] || null;
+  const currentValue =
+    value && value.length > depth ? value[depth]?.id ?? null : null;
 
   const fetch = useCallback(async () => {
     setLoading(true);
+    console.log({
+      target,
+      parent,
+    });
     try {
       const { data } = await post(`/categorizer`, {
         data: {
@@ -59,31 +67,37 @@ const CategorizerInput: React.FC<CategorizerInputProps> = ({
   }, [target, parent]);
 
   useEffect(() => {
-    if (target) {
+    if (typeof parent !== undefined) {
       fetch();
     }
   }, [parent]);
 
+  const handleOptionChange = (id: number) => {
+    let option = options?.find((option) => option.id === id);
+    if (option) {
+      onValueChange({ value: option, depth });
+    }
+  };
+
   return (
-    <>
-      <GridItem col={4} s={12}>
-        <Select value={currentValue} disabled={false} onChange={() => {}}>
+    <GridItem col={4} s={12}>
+      {loading ? (
+        <div>loading</div>
+      ) : (
+        <Select
+          value={currentValue}
+          onChange={handleOptionChange}
+          loading={loading}
+          disabled={Boolean(!options)}
+        >
           {options?.map((option) => (
-            <Option>{option.id}</Option>
+            <Option value={option.id}>
+              {option[attribute as keyof typeof option] ?? option.id}
+            </Option>
           ))}
         </Select>
-      </GridItem>
-      {depth < 4 && (
-        <CategorizerInput
-          name=""
-          value={value}
-          onValueChange={onValueChange}
-          target={target}
-          parent={currentValue}
-          depth={depth + 1}
-        />
       )}
-    </>
+    </GridItem>
   );
 };
 

@@ -24,7 +24,7 @@ export default {
         defaultMessage: "Categorize your content",
       },
       inputSize: {
-        default: 6,
+        default: 12,
         isResizable: true,
       },
       options: {
@@ -37,32 +37,45 @@ export default {
             items: [
               {
                 intlLabel: {
-                  id: "categorizer.taget.label",
-                  defaultMessage: "Target filed name",
+                  id: "categorizer.targetName.label",
+                  defaultMessage: "targetName",
                 },
                 description: {
-                  id: "categorizer.taget.label.description",
+                  id: "categorizer.targetName.label.description",
                   defaultMessage:
                     "The filed that contains hasMany realtion to target collection.",
                 },
-                name: "options.target",
+                name: "options.targetName",
                 type: "text",
                 value: "",
               },
               {
                 intlLabel: {
-                  id: "categorizer.tagetName.label",
-                  defaultMessage:
-                    "Content attribute to display (name, slug, etc.)",
+                  id: "categorizer.targetAttribute.label",
+                  defaultMessage: "targetName targetAttribute",
                 },
                 description: {
-                  id: "categorizer.taget.tagetName.description",
+                  id: "categorizer.targetAttribute.description",
                   defaultMessage:
                     "The filed in taget collection that is going to be displayed in dropdown.",
                 },
-                name: "options.targetName",
+                name: "options.targetAttribute",
                 type: "text",
                 value: "title",
+              },
+              {
+                intlLabel: {
+                  id: "categorizer.maxDepth.label",
+                  defaultMessage: "targetName targetAttribute",
+                },
+                description: {
+                  id: "categorizer.maxDepth.description",
+                  defaultMessage:
+                    "The filed in taget collection that is going to be displayed in dropdown.",
+                },
+                name: "options.maxDepth",
+                type: "number",
+                value: 3,
               },
             ],
           },
