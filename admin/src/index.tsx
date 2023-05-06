@@ -38,43 +38,32 @@ export default {
               {
                 intlLabel: {
                   id: "categorizer.taget.label",
-                  defaultMessage: "Content Type",
+                  defaultMessage: "Target filed name",
+                },
+                description: {
+                  id: "categorizer.taget.label.description",
+                  defaultMessage:
+                    "The filed that contains hasMany realtion to target collection.",
                 },
                 name: "options.target",
                 type: "text",
                 value: "",
               },
-              // {
-              //   intlLabel: {
-              //     id: "categorizer.taget.label",
-              //     defaultMessage: "Content Type",
-              //   },
-              //   name: "options.target",
-              //   type: "select",
-              //   value: "hex",
-              //   options: [
-              //     {
-              //       key: "hex",
-              //       value: "hex",
-              //       metadatas: {
-              //         intlLabel: {
-              //           id: "categorizer.taget.format.hex",
-              //           defaultMessage: "Hexadecimal",
-              //         },
-              //       },
-              //     },
-              //     {
-              //       key: "rgba",
-              //       value: "rgba",
-              //       metadatas: {
-              //         intlLabel: {
-              //           id: "color-picker.color.format.rgba",
-              //           defaultMessage: "RGBA",
-              //         },
-              //       },
-              //     },
-              //   ],
-              // },
+              {
+                intlLabel: {
+                  id: "categorizer.tagetName.label",
+                  defaultMessage:
+                    "Content attribute to display (name, slug, etc.)",
+                },
+                description: {
+                  id: "categorizer.taget.tagetName.description",
+                  defaultMessage:
+                    "The filed in taget collection that is going to be displayed in dropdown.",
+                },
+                name: "options.targetName",
+                type: "text",
+                value: "title",
+              },
             ],
           },
           {
@@ -95,7 +84,7 @@ export default {
                 },
                 name: "private",
                 type: "checkbox",
-                value: false,
+                value: true,
               },
             ],
           },
@@ -113,7 +102,7 @@ export default {
       components: {
         Input: async () =>
           import(
-            /* webpackChunkName: "input-component" */ "./components/CategorizerInput"
+            /* webpackChunkName: "input-component" */ "./components/Categorizer"
           ),
       },
     });

@@ -1,5 +1,5 @@
-import myController from './my-controller';
+import categorizer from "./categorizer";
 
 export default {
-  myController,
+  categorizer,
 };

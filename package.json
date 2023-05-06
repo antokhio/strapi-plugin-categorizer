@@ -16,10 +16,12 @@
   },
   "devDependencies": {
     "@strapi/typescript-utils": "^4.6.0",
+    "@types/qs": "^6.9.7",
     "@types/react": "^17.0.53",
     "@types/react-dom": "^17.0.18",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
+    "qs": "^6.11.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.3.4",
