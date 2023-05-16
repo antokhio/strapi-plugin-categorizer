@@ -4,7 +4,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
   async find(ctx) {
     const { data } = ctx.request.body;
     if (typeof data === "object") {
-      console.log({ ...data });
       const { target, parent } = data;
       if (typeof target === "string" && typeof parent !== "undefined") {
         return await strapi.db

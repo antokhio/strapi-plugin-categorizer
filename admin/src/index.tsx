@@ -2,7 +2,6 @@ import { prefixPluginTranslations } from "@strapi/helper-plugin";
 
 import pluginPkg from "../../package.json";
 import pluginId from "./pluginId";
-import Initializer from "./components/Initializer";
 import PluginIcon from "./components/PluginIcon";
 
 const name = pluginPkg.strapi.name;
@@ -37,15 +36,15 @@ export default {
             items: [
               {
                 intlLabel: {
-                  id: "categorizer.targetName.label",
-                  defaultMessage: "targetName",
+                  id: "categorizer.target.label",
+                  defaultMessage: "target",
                 },
                 description: {
-                  id: "categorizer.targetName.label.description",
+                  id: "categorizer.target.label.description",
                   defaultMessage:
-                    "The filed that contains hasMany realtion to target collection.",
+                    "Name of attribute that is going to be used as target for relations",
                 },
-                name: "options.targetName",
+                name: "options.target",
                 type: "text",
                 value: "",
               },
@@ -57,7 +56,7 @@ export default {
                 description: {
                   id: "categorizer.targetAttribute.description",
                   defaultMessage:
-                    "The filed in taget collection that is going to be displayed in dropdown.",
+                    "Name of attribute in target collection that is going to be displayed as option name",
                 },
                 name: "options.targetAttribute",
                 type: "text",
@@ -66,12 +65,11 @@ export default {
               {
                 intlLabel: {
                   id: "categorizer.maxDepth.label",
-                  defaultMessage: "targetName targetAttribute",
+                  defaultMessage: "maxDepth",
                 },
                 description: {
                   id: "categorizer.maxDepth.description",
-                  defaultMessage:
-                    "The filed in taget collection that is going to be displayed in dropdown.",
+                  defaultMessage: "The expected depth of relations",
                 },
                 name: "options.maxDepth",
                 type: "number",
@@ -102,15 +100,6 @@ export default {
             ],
           },
         ],
-        // advanced: [
-        //   {
-        //     sectionTitle: {
-        //       id: "categorizer.taget.title",
-        //       defaultMessage: "Target",
-        //     },
-        //     items: [],
-        //   },
-        // ],
       },
       components: {
         Input: async () =>

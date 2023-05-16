@@ -1,21 +1,8 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import {
-  useFetchClient,
-  useCMEditViewDataManager,
-} from "@strapi/helper-plugin";
-import {
-  Flex,
-  Stack,
-  Field,
-  FieldLabel,
-  Grid,
-  Select,
-  Option,
-  Box,
-  Loader,
-} from "@strapi/design-system";
-import CategorizerInput from "../CategorizerInput";
+import { Field, FieldLabel, Grid, Stack } from "@strapi/design-system";
+import { useCMEditViewDataManager } from "@strapi/helper-plugin";
+import React, { useMemo } from "react";
 import { CategorizerValue } from "../../types";
+import CategorizerInput from "../CategorizerInput";
 
 interface CategorizerProps {
   name: string;
@@ -30,7 +17,7 @@ interface CategorizerProps {
     type: string;
     customFiled: string;
     options: {
-      targetName: string | null;
+      target: string | null;
       targetAttribute: string | null;
       maxDepth: number | null;
     };
@@ -44,7 +31,7 @@ interface CategorizerProps {
 const Categorizer: React.FC<CategorizerProps> = ({
   name,
   attribute: {
-    options: { targetName, targetAttribute, maxDepth = 3 },
+    options: { target: targetName, targetAttribute, maxDepth = 3 },
     type,
   },
   value: initialValue,
@@ -66,18 +53,19 @@ const Categorizer: React.FC<CategorizerProps> = ({
     [targetAttribute]
   );
 
-  const value = (initialValue && JSON.parse(initialValue)) ?? [];
-
-  console.log("state", value);
+  const value = useMemo(
+    () => (initialValue && JSON.parse(initialValue)) ?? [],
+    [initialValue]
+  );
   const handleValueChange = (args: {
     value: CategorizerValue;
     depth: number;
   }) => {
-    value[args.depth] = args.value;
+    const newValue = [...value.splice(0, args.depth), args.value];
     onChange({
       target: {
         name,
-        value: JSON.stringify(value),
+        value: JSON.stringify(newValue),
         type: type,
       },
     });

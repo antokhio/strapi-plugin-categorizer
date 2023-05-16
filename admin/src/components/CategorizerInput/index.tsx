@@ -1,22 +1,7 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
-import {
-  useFetchClient,
-  useCMEditViewDataManager,
-} from "@strapi/helper-plugin";
-import {
-  Flex,
-  Stack,
-  Field,
-  FieldLabel,
-  GridItem,
-  Select,
-  Option,
-  Box,
-  Loader,
-} from "@strapi/design-system";
-import qs from "qs";
+import { GridItem, Option, Select } from "@strapi/design-system";
+import { useFetchClient } from "@strapi/helper-plugin";
+import React, { useCallback, useEffect, useState } from "react";
 import { CategorizerValue } from "../../types";
-import { fetcher } from "../../utils/fetcher";
 
 interface CategorizerInputProps {
   value: null | any;
