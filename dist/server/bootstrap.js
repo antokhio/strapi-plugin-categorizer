@@ -9,12 +9,12 @@ exports.default = ({ strapi }) => {
             Object.entries(attributes).forEach(([source, config]) => {
                 const { customField, options } = config;
                 if (customField === "plugin::categorizer.categorizer") {
-                    const { targetName } = options;
-                    const model = attributes[targetName];
+                    const { target } = options;
+                    const model = attributes[target];
                     // --------------------------
                     // TODO: add model vliadation
                     // --------------------------
-                    const categorizer = { targetName, model, source };
+                    const categorizer = { target, model, source };
                     console.log(customField, options);
                     categorizers[key] = categorizers[key]
                         ? [...categorizers[key], categorizer]
@@ -29,16 +29,16 @@ exports.default = ({ strapi }) => {
         models: Object.keys(categorizers),
         beforeCreate(event) {
             const configs = categorizers[event.model.uid];
-            configs.forEach(({ targetName, source }) => {
+            configs.forEach(({ target, source }) => {
                 var _a;
-                event.params.data[targetName] = (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
+                event.params.data[target] = (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
             });
         },
         beforeUpdate(event) {
             const configs = categorizers[event.model.uid];
-            configs.forEach(({ targetName, source }) => {
+            configs.forEach(({ target, source }) => {
                 var _a;
-                event.params.data[targetName] = (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
+                event.params.data[target] = (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
             });
         },
     });
