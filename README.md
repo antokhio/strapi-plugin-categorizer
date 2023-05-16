@@ -1,5 +1,27 @@
 # Strapi plugin categorizer
 
+## WARNING 2.0.0 is ALPHA VERSION
+
+From 2.0.0 categorizer changes the npm package to `strapi-plugin-categorizer`
+version 2.0.0 - latest alpha, so documentation needs update
+
+version 2 is NOT compatible to version 1
+
+## Installation
+
+```py
+npm i strapi-plugin-categorizer
+or
+yarn add strapi-plugin-categorizer
+```
+
+```py
+npm run build
+yarn run build
+```
+
+### OUTDATED INFO
+
 A plugin that lets you categorise content quickly.
 
 `categorizer` is a kind of relation builder based on json created in custom field.
@@ -24,24 +46,11 @@ So make sure that target content type has `categorizer` and `categories` attribu
 
 This plugin teste with `Strapi 4.6.0`
 
-## Installation
-
-```py
-npm i @antokhio/strapi-plugin-categorizer
-or
-yarn add @antokhio/strapi-plugin-categorizer
-```
-
-```py
-npm run build
-yarn run build
-```
-
 The plugin will add:
 
--   Custom Field `Categorizer`
--   Collection `Categories`.
--   Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
+- Custom Field `Categorizer`
+- Collection `Categories`.
+- Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
 
 ## Setting up
 
@@ -83,9 +92,9 @@ You can access 'categories` as regular content type:
 http://localhost:1337/api/categories
 ```
 
--   You have to add permissions in `Roles & Permissions`
--   You can access collection from code via `plugin::categorizer.categorie`
--   You can extend `Categories` for your needs but it has to have mandatory field `parent`
+- You have to add permissions in `Roles & Permissions`
+- You can access collection from code via `plugin::categorizer.categorie`
+- You can extend `Categories` for your needs but it has to have mandatory field `parent`
 
 It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
 
@@ -97,9 +106,9 @@ http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 
 ### TODO:
 
--   [ ] Cleanup unused code
--   [ ] Target plugin name instead of fields name
--   [ ] Remove json field from response
+- [ ] Cleanup unused code
+- [ ] Target plugin name instead of fields name
+- [ ] Remove json field from response
 
 ### Knowing issues:
 

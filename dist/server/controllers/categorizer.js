@@ -1,19 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const normalize = (category) => {
-    var _a;
-    return ({
-        ...category,
-        //parent: category.parent ? category.parent.id : null,
-        parent: ((_a = category.parent) === null || _a === void 0 ? void 0 : _a.id) || null,
-    });
-};
-const normalizeMany = (categories) => categories.map((category) => normalize(category));
 exports.default = ({ strapi }) => ({
     async find(ctx) {
-        let categories = await strapi.db
-            .query("plugin::categorizer.category")
-            .findMany({ populate: ["parent"], orderBy: ["id"] });
-        return normalizeMany(categories);
+        const { data } = ctx.request.body;
+        if (typeof data === "object") {
+            const { target, parent } = data;
+            if (typeof target === "string" && typeof parent !== "undefined") {
+                return await strapi.db
+                    .query(target)
+                    .findMany({ where: { parent }, populate: ["parent"] });
+            }
+            return ctx.badRequest("Properties target or parent invalid", {
+                target,
+                parent,
+            });
+        }
+        return ctx.badRequest("No data in request");
     },
 });

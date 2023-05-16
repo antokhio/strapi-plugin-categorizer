@@ -1,23 +1,22 @@
-/**
- *  controller
- */
 import { Strapi } from "@strapi/strapi";
-
-const normalize = (category: any) => ({
-  ...category,
-  //parent: category.parent ? category.parent.id : null,
-  parent: category.parent?.id || null,
-});
-
-const normalizeMany = (categories: any[]) =>
-  categories.map((category) => normalize(category));
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async find(ctx) {
-    let categories = await strapi.db
-      .query("plugin::categorizer.category")
-      .findMany({ populate: ["parent"], orderBy: ["id"] });
+    const { data } = ctx.request.body;
+    if (typeof data === "object") {
+      const { target, parent } = data;
+      if (typeof target === "string" && typeof parent !== "undefined") {
+        return await strapi.db
+          .query(target)
+          .findMany({ where: { parent }, populate: ["parent"] });
+      }
 
-    return normalizeMany(categories);
+      return ctx.badRequest("Properties target or parent invalid", {
+        target,
+        parent,
+      });
+    }
+
+    return ctx.badRequest("No data in request");
   },
 });

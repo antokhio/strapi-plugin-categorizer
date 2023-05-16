@@ -1,41 +1,59 @@
 import { Strapi } from "@strapi/strapi";
 
 export default ({ strapi }: { strapi: Strapi }) => {
-  let models = [];
-  Object.entries(strapi.contentTypes).forEach(([key, value]) => {
-    if (
-      "categorizer" in (value as any).attributes &&
-      "categories" in (value as any).attributes
-    ) {
-      models.push(key);
+  // bootstrap phase
+
+  const categorizers: Record<
+    string,
+    {
+      model: any;
+      targetName: string;
+      source: string;
+    }[]
+  > = {};
+
+  Object.entries(strapi.contentTypes).forEach(
+    ([key, value]: [key: string, value: any]) => {
+      const { attributes } = value;
+      if (typeof attributes === "object") {
+        Object.entries(attributes).forEach(
+          ([source, config]: [source: string, config: any]) => {
+            const { customField, options } = config;
+            if (customField === "plugin::categorizer.categorizer") {
+              const { targetName } = options;
+              const model = attributes[targetName];
+              // --------------------------
+              // TODO: add model vliadation
+              // --------------------------
+              const categorizer = { targetName, model, source };
+
+              console.log(customField, options);
+
+              categorizers[key] = categorizers[key]
+                ? [...categorizers[key], categorizer]
+                : [categorizer];
+            }
+          }
+        );
+      }
     }
-  });
+  );
 
-  strapi.log.info("categorizer: ", models);
-
+  console.log(categorizers);
   strapi.db.lifecycles.subscribe({
-    // @ts-ignore
-    models,
-    async beforeCreate(event) {
-      let { params } = event;
-      let { data } = params;
-      const { categorizer } = data;
-      if (categorizer) {
-        event.params.data.categories = categorizer.map((id, i) => ({
-          id,
-          order: i,
-        }));
-      }
+    // @ts-expect-error strapi misstype
+    models: Object.keys(categorizers),
+    beforeCreate(event) {
+      const configs = categorizers[event.model.uid];
+      configs.forEach(({ targetName, source }) => {
+        event.params.data[targetName] = event.params.data[source] ?? [];
+      });
     },
-    async beforeUpdate(event) {
-      const { data } = event.params;
-      const { categorizer } = data;
-      if (categorizer) {
-        event.params.data.categories = categorizer.map((id, i) => ({
-          id,
-          order: i,
-        }));
-      }
+    beforeUpdate(event) {
+      const configs = categorizers[event.model.uid];
+      configs.forEach(({ targetName, source }) => {
+        event.params.data[targetName] = event.params.data[source] ?? [];
+      });
     },
   });
 };

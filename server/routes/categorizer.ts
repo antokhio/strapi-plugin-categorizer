@@ -2,7 +2,7 @@ export default {
   type: "admin",
   routes: [
     {
-      method: "GET",
+      method: "POST",
       path: "/",
       handler: "categorizer.find",
     },
