@@ -1,6 +1,6 @@
 {
     "name": "strapi-plugin-categorizer",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "A plugin that lets you categorize content quickly.",
     "strapi": {
         "name": "categorizer",
@@ -35,11 +35,11 @@
         "styled-components": "^5.3.6"
     },
     "author": {
-        "name": "A Strapi developer"
+        "name": "antokhio"
     },
     "maintainers": [
         {
-            "name": "A Strapi developer"
+            "name": "antokhio"
         }
     ],
     "engines": {
