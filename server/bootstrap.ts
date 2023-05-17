@@ -27,8 +27,6 @@ export default ({ strapi }: { strapi: Strapi }) => {
               // --------------------------
               const categorizer = { target, model, source };
 
-              console.log(customField, options);
-
               categorizers[key] = categorizers[key]
                 ? [...categorizers[key], categorizer]
                 : [categorizer];

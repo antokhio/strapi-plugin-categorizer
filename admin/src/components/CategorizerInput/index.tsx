@@ -32,10 +32,6 @@ const CategorizerInput: React.FC<CategorizerInputProps> = ({
 
   const fetch = useCallback(async () => {
     setLoading(true);
-    console.log({
-      target,
-      parent,
-    });
     try {
       const { data } = await post(`/categorizer`, {
         data: {
@@ -52,13 +48,13 @@ const CategorizerInput: React.FC<CategorizerInputProps> = ({
   }, [target, parent]);
 
   useEffect(() => {
-    if (typeof parent !== undefined) {
+    if (typeof parent !== "undefined") {
       fetch();
     }
   }, [parent]);
 
   const handleOptionChange = (id: number) => {
-    let option = options?.find((option) => option.id === id);
+    let option = options?.find((option) => option.id == id);
     if (option) {
       onValueChange({ value: option, depth });
     }

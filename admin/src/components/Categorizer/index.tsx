@@ -70,6 +70,7 @@ const Categorizer: React.FC<CategorizerProps> = ({
       },
     });
   };
+
   // --------------------------
   // TODO: add model vliadation
   /* --------------------------
