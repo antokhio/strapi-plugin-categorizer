@@ -1,35 +1,56 @@
-# Strapi plugin categorizer
+# Strapi plugin categorizer v.2
+A plugin that lets you categorise content quickly.
 
-## WARNING 2.0.0 is ALPHA VERSION
+![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
 
-From 2.0.0 categorizer changes the npm package to `strapi-plugin-categorizer`
-version 2.0.0 - latest alpha, so documentation needs update
+## WARNING 2.0.X is ALPHA VERSION
+From version 2.0.0 categorizer changes the npm package to `strapi-plugin-categorizer`, v2 not backward compatible to v1.
 
-version 2 is NOT compatible to version 1
-
-## Installation
+### Installation
 
 ```py
 npm i strapi-plugin-categorizer
-or
+-or-
 yarn add strapi-plugin-categorizer
 ```
 
 ```py
 npm run build
+-or-
 yarn run build
 ```
 
-### OUTDATED INFO
+### Guide
 
-A plugin that lets you categorise content quickly.
+1. Create your custom collection type. (`Category`)
+2. Add string field `name`
+3. Add relation hasOne to `Category`, name the relation field `parent`.
+4. Switch to content manager view, add your categories to collection:
+  - if no parent assigned, - parent is `null`, this is a root
+  - if category has parent, this is a leaf - a subcategory
+5. After you created your `Categories` structure, you have to add two fields to your target collection:
+  - `categories` - hasMany relation to `Categories`
+  - `categoriesCategorizer` - the categorizer field, that is going to be used to build relations
+     - `Name` - `categoriesCategorizer`
+     - `target` - `categories`
+     - `targetName` - `name`
+     - `maxDepth` - 4
+6. After you set up, you shold be able to select relations based on your structure, when you hit save, you should get array of relations in `categories` field. 
+
+### Current state
+
+- [X] supports multiple categorizer fields per collection
+- [X] supports user created collections
+- [ ] fetaure: additional extra categories
+- [ ] need validation for user entered configuration data
+
+
+### About
 
 `categorizer` is a kind of relation builder based on json created in custom field.
 The `categorizer` field would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, those json would be used to build actual relations for `categories` field.
 
-So make sure that target content type has `categorizer` and `categories` attributes.
-
-`Categories` is a collection that should have following structure:
+Collection that should have following structure:
 
 ```
  _______________________         _______________________         _______________________
@@ -40,79 +61,25 @@ So make sure that target content type has `categorizer` and `categories` attribu
 
 ```
 
-![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
-
 ## Requirements
 
-This plugin teste with `Strapi 4.6.0`
+This plugin tested with `Strapi 4.6.0`
 
 The plugin will add:
 
 - Custom Field `Categorizer`
-- Collection `Categories`.
-- Lifecycle hooks for contentType that includes fields `categories` and `categorizer`.
-
-## Setting up
-
-1. Create your category structure.
-
-2. Add custom field `categorizer` and relation `hasMany` `categories` to your content type like so:
-   `src/api/contentType/content-types/contentType/schema.json`
-
-```json
-{
-  ...
-  "attributes": {
-    ...
-    "categorizer": {
-      "type": "customField",
-      "customField": "plugin::categorizer.categorizer",
-      "private": true,
-    },
-    "categories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "plugin::categorizer.category"
-    }
-    ...
-  }
-}
-```
+- Lifecycle hooks for contentType that are going to target `categorizer` json fields.
 
 #### NOTICE:
 
-1. Only three levels of depth are supported.
-2. Categories order currently is by id.
-3. All categories would be fetched at once, so it's not expected to work with thousands of them.
-4. Categories can have only one parent.
+1. Categories can have only one parent.
+2. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
+3. It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
 
-You can access 'categories` as regular content type:
-
-```
-http://localhost:1337/api/categories
-```
-
-- You have to add permissions in `Roles & Permissions`
-- You can access collection from code via `plugin::categorizer.categorie`
-- You can extend `Categories` for your needs but it has to have mandatory field `parent`
-
-It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
 
 The purpose of this is to be able to do that:
-
 ```
 http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 ```
-
-### TODO:
-
-- [ ] Cleanup unused code
-- [ ] Target plugin name instead of fields name
-- [ ] Remove json field from response
-
-### Knowing issues:
-
-1. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
-2. [Route prefix: Route prefix false does not remove the plugin name but prepend 'false' at the route](https://github.com/strapi/strapi/issues/9232)
 
 ##### P.S. This is developed in free time, and this is not magic, so be kind and use it wisely.
