@@ -1,6 +1,6 @@
 # Strapi plugin categorizer v.2
 
-A plugin that lets you categorise content quickly.
+A plugin that lets you categorize content quickly.
 
 ![categorizer](https://user-images.githubusercontent.com/1254168/215042671-6a87ac80-7f52-41a0-8aeb-3312b644a096.gif)
 
@@ -39,15 +39,15 @@ yarn run build
   - `Name` - `categoriesCategorizer`
   - `target` - `categories`
   - `targetName` - `name`
-  - `maxDepth` - 4
+  - `maxDepth` - `4`
 
-6. After you set up, you shold be able to select relations based on your structure, when you hit save, you should get array of relations in `categories` field.
+6. After you set up, you should be able to select relations based on your structure, when you hit save, you should get array of relations in `categories` field.
 
 ### Current state
 
 - [x] supports multiple categorizer fields per collection
 - [x] supports user created collections
-- [ ] fetaure: additional extra categories
+- [ ] feature: additional extra categories
 - [ ] need validation for user entered configuration data
 
 ### About
@@ -68,7 +68,7 @@ Collection that should have following structure:
 
 ## Requirements
 
-This plugin tested with `Strapi 4.6.0`
+This plugin tested with `Strapi ^4.6.0`
 
 The plugin will add:
 
