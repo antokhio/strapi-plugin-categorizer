@@ -62,8 +62,8 @@ Collection that should have following structure:
 ```
  _______________________         _______________________         _______________________
 |                       |       |                       |       |                       |
-|       _root_          | ____\ |        _child_        | ____\ |    _childs child_     |
-|     parent: null      |     / |     parent: _root_    |     / |    parent: _child_    |
+|        "root"         | ____\ |        "child"        | ____\ |    "childs child"     |
+|     parent: null      |     / |     parent: "root"    |     / |    parent: "child"    |
 |_______________________|       |_______________________|       |_______________________|
 
 ```
