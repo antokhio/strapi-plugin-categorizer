@@ -7,7 +7,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
     string,
     {
       model: any;
-      targetName: string;
+      target: string;
       source: string;
     }[]
   > = {};
@@ -20,14 +20,17 @@ export default ({ strapi }: { strapi: Strapi }) => {
           ([source, config]: [source: string, config: any]) => {
             const { customField, options } = config;
             if (customField === "plugin::categorizer.categorizer") {
-              const { targetName } = options;
-              const model = attributes[targetName];
+              const { target } = options;
+              const model = attributes[target];
+
+              // console.log(attributes);
+
               // --------------------------
               // TODO: add model vliadation
               // --------------------------
-              const categorizer = { targetName, model, source };
+              const categorizer = { target, model, source };
 
-              console.log(customField, options);
+              //console.log({ target, customField, model, options });
 
               categorizers[key] = categorizers[key]
                 ? [...categorizers[key], categorizer]
@@ -45,14 +48,18 @@ export default ({ strapi }: { strapi: Strapi }) => {
     models: Object.keys(categorizers),
     beforeCreate(event) {
       const configs = categorizers[event.model.uid];
-      configs.forEach(({ targetName, source }) => {
-        event.params.data[targetName] = event.params.data[source] ?? [];
+      configs.forEach(({ target, source }) => {
+        event.params.data[target] = Array.isArray(event.params.data[target])
+          ? [...event.params.data[target], ...event.params.data[source]]
+          : event.params.data[source] ?? [];
       });
     },
     beforeUpdate(event) {
       const configs = categorizers[event.model.uid];
-      configs.forEach(({ targetName, source }) => {
-        event.params.data[targetName] = event.params.data[source] ?? [];
+      configs.forEach(({ target, source }) => {
+        event.params.data[target] = Array.isArray(event.params.data[target])
+          ? [...event.params.data[target], ...event.params.data[source]]
+          : event.params.data[source] ?? [];
       });
     },
   });
