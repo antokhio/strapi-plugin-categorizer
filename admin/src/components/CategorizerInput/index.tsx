@@ -1,11 +1,21 @@
-import { GridItem, Option, Select } from "@strapi/design-system";
+import {
+  GridItem,
+  Option,
+  Select,
+  TextButton,
+  Flex,
+} from "@strapi/design-system";
 import { useFetchClient } from "@strapi/helper-plugin";
 import React, { useCallback, useEffect, useState } from "react";
 import { CategorizerValue } from "../../types";
+import { Trash } from "@strapi/icons";
 
 interface CategorizerInputProps {
   value: null | any;
-  onValueChange: (args: { value: CategorizerValue; depth: number }) => void;
+  onValueChange: (args: {
+    value: CategorizerValue | undefined;
+    depth: number;
+  }) => void;
   target: string | null;
   attribute: string | null;
   parent?: null | { id: number };
@@ -60,6 +70,10 @@ const CategorizerInput: React.FC<CategorizerInputProps> = ({
     }
   };
 
+  const handleDeleteOption = () => {
+    onValueChange({ value: undefined, depth });
+  };
+
   return (
     <GridItem col={4} s={12}>
       {loading ? (
@@ -70,6 +84,11 @@ const CategorizerInput: React.FC<CategorizerInputProps> = ({
           onChange={handleOptionChange}
           loading={loading}
           disabled={Boolean(!options)}
+          hint={
+            currentValue && (
+              <TextButton onClick={handleDeleteOption}>clear</TextButton>
+            )
+          }
         >
           {options?.map((option) => (
             <Option value={option.id}>
