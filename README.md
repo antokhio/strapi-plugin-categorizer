@@ -43,14 +43,15 @@ yarn run build
 
 6. After you set up, you should be able to select relations based on your structure, when you hit save, you should get array of relations in `categories` field.
 
-### Current state
+### FEATURES
 
 - [x] supports multiple categorizer fields per collection
 - [x] supports user created collections
-- [x] feature: multiple categorizers on one target\*
+- [x] feature: multiple categorizers on one target*
+- [x] feature: clear for categorizer dropdown
 - [ ] need validation for user entered configuration data
 
-_multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
+_* multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
 
 ### About
 
@@ -58,12 +59,11 @@ _multiple categorizers on one target_ - allows to target same relation field fro
 The `categorizer` field would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, those json would be used to build actual relations for `categories` field.
 
 Collection that should have following structure:
-
 ```
  _______________________         _______________________         _______________________
 |                       |       |                       |       |                       |
-|     Main category     | ____\ |       Category        | ____\ |      Sub Category     |
-|     parent: null      |     / | parent: Main Category |     / |    parent: Category   |
+|       _root_          | ____\ |        _child_        | ____\ |    _childs child_     |
+|     parent: null      |     / |     parent: _root_    |     / |    parent: _child_    |
 |_______________________|       |_______________________|       |_______________________|
 
 ```
