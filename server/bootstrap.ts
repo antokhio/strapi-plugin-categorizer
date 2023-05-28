@@ -27,6 +27,8 @@ export default ({ strapi }: { strapi: Strapi }) => {
               // --------------------------
               const categorizer = { target, model, source };
 
+              //console.log({ target, customField, model, options });
+
               categorizers[key] = categorizers[key]
                 ? [...categorizers[key], categorizer]
                 : [categorizer];
@@ -44,13 +46,17 @@ export default ({ strapi }: { strapi: Strapi }) => {
     beforeCreate(event) {
       const configs = categorizers[event.model.uid];
       configs.forEach(({ target, source }) => {
-        event.params.data[target] = event.params.data[source] ?? [];
+        event.params.data[target] = Array.isArray(event.params.data[target])
+          ? [...event.params.data[target], ...event.params.data[source]]
+          : event.params.data[source] ?? [];
       });
     },
     beforeUpdate(event) {
       const configs = categorizers[event.model.uid];
       configs.forEach(({ target, source }) => {
-        event.params.data[target] = event.params.data[source] ?? [];
+        event.params.data[target] = Array.isArray(event.params.data[target])
+          ? [...event.params.data[target], ...event.params.data[source]]
+          : event.params.data[source] ?? [];
       });
     },
   });

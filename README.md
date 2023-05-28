@@ -47,8 +47,10 @@ yarn run build
 
 - [x] supports multiple categorizer fields per collection
 - [x] supports user created collections
-- [ ] feature: additional extra categories
+- [x] feature: multiple categorizers on one target\*
 - [ ] need validation for user entered configuration data
+
+_multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
 
 ### About
 
@@ -74,6 +76,7 @@ The plugin will add:
 
 - Custom Field `Categorizer`
 - Lifecycle hooks for contentType that are going to target `categorizer` json fields.
+-
 
 #### NOTICE:
 
