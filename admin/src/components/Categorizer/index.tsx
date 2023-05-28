@@ -71,8 +71,9 @@ const Categorizer: React.FC<CategorizerProps> = ({
     });
   };
 
-  // TODO TARGET VALIDATION
-  /*
+  // --------------------------
+  // TODO: add model vliadation
+  /* --------------------------
   const validTarget = {
     type: "relation",
     relation: "oneToMany",

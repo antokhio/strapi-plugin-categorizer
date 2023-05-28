@@ -8,7 +8,6 @@ const name = pluginPkg.strapi.name;
 
 export default {
   register(app: any) {
-    console.log(app);
     app.customFields.register({
       name: name,
       pluginId: pluginId,

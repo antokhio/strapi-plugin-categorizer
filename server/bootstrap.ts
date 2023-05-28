@@ -22,9 +22,6 @@ export default ({ strapi }: { strapi: Strapi }) => {
             if (customField === "plugin::categorizer.categorizer") {
               const { target } = options;
               const model = attributes[target];
-
-              // console.log(attributes);
-
               // --------------------------
               // TODO: add model vliadation
               // --------------------------
