@@ -58,7 +58,7 @@ const Categorizer: React.FC<CategorizerProps> = ({
     [initialValue]
   );
   const handleValueChange = (args: {
-    value: CategorizerValue;
+    value: CategorizerValue | undefined;
     depth: number;
   }) => {
     const newValue = [...value.splice(0, args.depth), args.value];
