@@ -10,16 +10,12 @@ From version 2.0.0 categorizer changes the npm package to `strapi-plugin-categor
 
 ### Installation
 
-```py
-npm i strapi-plugin-categorizer
--or-
+```sh
 yarn add strapi-plugin-categorizer
 ```
 
-```py
-npm run build
--or-
-yarn run build
+```sh
+yarn build
 ```
 
 ### Guide
@@ -47,11 +43,11 @@ yarn run build
 
 - [x] supports multiple categorizer fields per collection
 - [x] supports user created collections
-- [x] feature: multiple categorizers on one target*
+- [x] feature: multiple categorizers on one target\*
 - [x] feature: clear for categorizer dropdown
 - [ ] need validation for user entered configuration data
 
-_* multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
+_\* multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
 
 ### About
 
@@ -59,6 +55,7 @@ _* multiple categorizers on one target_ - allows to target same relation field f
 The `categorizer` field would let you select filtered relations one by one, then in beforeCreate or beforeUpdate, those json would be used to build actual relations for `categories` field.
 
 Collection that should have following structure:
+
 ```
  _______________________         _______________________         _______________________
 |                       |       |                       |       |                       |
@@ -71,6 +68,9 @@ Collection that should have following structure:
 ## Requirements
 
 This plugin tested with `Strapi ^4.6.0`
+
+`@strapi/strapi` < `4.11.0` - `strapi-plugin-categorizer@2.0.7`
+`@strapi/strapi` >= `4.11.0` - `strapi-plugin-categorizer`
 
 The plugin will add:
 
