@@ -80,7 +80,7 @@ The plugin will add:
 1. Categories can have only one parent.
 2. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
 3. It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
-4. _Data-transfer not supported_ (will break selection but not relations)
+4. __Data-transfer not supported__ (will break selection but not relations)
 
 The purpose of this is to be able to do that:
 
