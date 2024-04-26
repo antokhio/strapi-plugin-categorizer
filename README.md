@@ -90,4 +90,4 @@ http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 ```
 
 ##### P.S. This is developed in free time, and this is not magic, so be kind and use it wisely.
-##### P.S.S. Accepting contributions.
+##### We accepting contributions.
