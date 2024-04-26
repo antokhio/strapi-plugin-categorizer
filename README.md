@@ -60,8 +60,8 @@ Collection that should have following structure:
 ```
  _______________________         _______________________         _______________________
 |                       |       |                       |       |                       |
-|        "root"         | ____\ |        "child"        | ____\ |    "childs child"     |
-|     parent: null      |     / |     parent: "root"    |     / |    parent: "child"    |
+|        "root"         | ____\ |       "branch"        | ____\ |        "leaf"         |
+|     parent: null      |     / |     parent: "root"    |     / |   parent: "branch"    |
 |_______________________|       |_______________________|       |_______________________|
 
 ```
