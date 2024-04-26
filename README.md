@@ -26,7 +26,7 @@ yarn build
 4. Switch to content manager view, add your categories to collection:
 
 - if no parent assigned, - parent is `null`, this is a root
-- if category has parent, this is a leaf - a subcategory
+- if category has parent, this is a branch - a subcategory
 
 5. After you created your `Categories` structure, you have to add two fields to your target collection:
 
@@ -46,6 +46,7 @@ yarn build
 - [x] feature: multiple categorizers on one target\*
 - [x] feature: clear for categorizer dropdown
 - [ ] need validation for user entered configuration data
+- [ ] strapi data transfer
 
 _\* multiple categorizers on one target_ - allows to target same relation field from more then one categorizer to handle case where you need additional categories, like Gifts or New.
 
@@ -89,3 +90,4 @@ http://localhost:1337/api/cars?filters[categories][title][$eq]=sedan
 ```
 
 ##### P.S. This is developed in free time, and this is not magic, so be kind and use it wisely.
+##### P.S.S. Accepting contributions.
