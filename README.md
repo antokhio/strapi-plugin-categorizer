@@ -67,8 +67,6 @@ Collection that should have following structure:
 
 ## Requirements
 
-This plugin tested with `Strapi ^4.6.0`
-
 `@strapi/strapi` < `4.11.0` - `strapi-plugin-categorizer@2.0.7`
 `@strapi/strapi` >= `4.11.0` - `strapi-plugin-categorizer`
 
@@ -76,13 +74,13 @@ The plugin will add:
 
 - Custom Field `Categorizer`
 - Lifecycle hooks for contentType that are going to target `categorizer` json fields.
--
 
 #### NOTICE:
 
 1. Categories can have only one parent.
 2. [Relations are not updated in Content Editor View if updated from lifecycle hook.](https://github.com/strapi/strapi/issues/15571)
 3. It's recommended to hide or disable editing for field `categories`, since on every updated the relations would regenerate from `categorizer`.
+4. _Data-transfer not supported_ (will break selection but not relations)
 
 The purpose of this is to be able to do that:
 
