@@ -1,8 +1,6 @@
 import { Strapi } from "@strapi/strapi";
 
 export default ({ strapi }: { strapi: Strapi }) => {
-  // bootstrap phase
-
   const categorizers: Record<
     string,
     {
@@ -39,24 +37,29 @@ export default ({ strapi }: { strapi: Strapi }) => {
     }
   );
 
-  console.log(categorizers);
+  strapi.log.info(
+    `categorizers registered: ${Object.keys(categorizers).join(" ")}`
+  );
+
   strapi.db.lifecycles.subscribe({
     // @ts-expect-error strapi misstype
     models: Object.keys(categorizers),
     beforeCreate(event) {
       const configs = categorizers[event.model.uid];
       configs.forEach(({ target, source }) => {
-        event.params.data[target] = Array.isArray(event.params.data[target])
-          ? [...event.params.data[target], ...event.params.data[source]]
-          : event.params.data[source] ?? [];
+        if (event.params.data[target])
+          event.params.data[target] = Array.isArray(event.params.data[target])
+            ? [...event.params.data[target], ...event.params.data[source]]
+            : event.params.data[source] ?? [];
       });
     },
     beforeUpdate(event) {
       const configs = categorizers[event.model.uid];
       configs.forEach(({ target, source }) => {
-        event.params.data[target] = Array.isArray(event.params.data[target])
-          ? [...event.params.data[target], ...event.params.data[source]]
-          : event.params.data[source] ?? [];
+        if (event.params.data[target])
+          event.params.data[target] = Array.isArray(event.params.data[target])
+            ? [...event.params.data[target], ...event.params.data[source]]
+            : event.params.data[source] ?? [];
       });
     },
   });
