@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = ({ strapi }) => {
-    // bootstrap phase
     const categorizers = {};
     Object.entries(strapi.contentTypes).forEach(([key, value]) => {
         const { attributes } = value;
@@ -23,7 +22,7 @@ exports.default = ({ strapi }) => {
             });
         }
     });
-    console.log(categorizers);
+    strapi.log.info(`categorizers registered: ${Object.keys(categorizers).join(" ")}`);
     strapi.db.lifecycles.subscribe({
         // @ts-expect-error strapi misstype
         models: Object.keys(categorizers),
@@ -31,18 +30,20 @@ exports.default = ({ strapi }) => {
             const configs = categorizers[event.model.uid];
             configs.forEach(({ target, source }) => {
                 var _a;
-                event.params.data[target] = Array.isArray(event.params.data[target])
-                    ? [...event.params.data[target], ...event.params.data[source]]
-                    : (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
+                if (event.params.data[target])
+                    event.params.data[target] = Array.isArray(event.params.data[target])
+                        ? [...event.params.data[target], ...event.params.data[source]]
+                        : (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
             });
         },
         beforeUpdate(event) {
             const configs = categorizers[event.model.uid];
             configs.forEach(({ target, source }) => {
                 var _a;
-                event.params.data[target] = Array.isArray(event.params.data[target])
-                    ? [...event.params.data[target], ...event.params.data[source]]
-                    : (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
+                if (event.params.data[target])
+                    event.params.data[target] = Array.isArray(event.params.data[target])
+                        ? [...event.params.data[target], ...event.params.data[source]]
+                        : (_a = event.params.data[source]) !== null && _a !== void 0 ? _a : [];
             });
         },
     });
