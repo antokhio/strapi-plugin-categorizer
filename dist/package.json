@@ -1,6 +1,6 @@
 {
     "name": "strapi-plugin-categorizer",
-    "version": "2.0.9",
+    "version": "2.0.10",
     "description": "A plugin that lets you categorize content quickly.",
     "strapi": {
         "name": "categorizer",
@@ -44,7 +44,7 @@
         }
     ],
     "engines": {
-        "node": ">=14.19.1 <=18.x.x",
+        "node": ">=14.19.1",
         "npm": ">=6.0.0"
     },
     "scripts": {
